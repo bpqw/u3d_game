@@ -1,0 +1,73 @@
+# Unity 生成的文件和目录
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+
+# MemoryCaptures 可能包含敏感信息
+/[Mm]emoryCaptures/
+
+# Asset 元数据应该只在相应的 asset 被忽略时才忽略
+!/[Aa]ssets/**/*.meta
+
+# 自动生成的 Visual Studio / MonoDevelop 解决方案和项目文件
+ExportedObj/
+.consulo/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# Unity3D 生成的元文件
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+
+# Unity3D 生成的崩溃报告文件
+sysinfo.txt
+
+# 构建
+*.apk
+*.aab
+*.unitypackage
+*.app
+
+# Crashlytics 生成的文件
+crashlytics-build.properties
+
+# Packed Addressables
+/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
+
+# 临时自动生成的 Android Assets
+/[Aa]ssets/[Ss]treamingAssets/aa.meta
+/[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Visual Scripting 生成的文件
+/[Aa]ssets/[Uu]nity.VisualScripting.Generated/
+/[Aa]ssets/[Uu]nity.VisualScripting.Generated.meta
+
+# 版本控制
+.plastic/
+.vs/
+
+# 操作系统生成的文件
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
