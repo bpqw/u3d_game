@@ -12,6 +12,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Transform endUI;
     [SerializeField] private Transform LossUI;
 
+    public GameObject player;
+
     public static LevelManager Instance { get; private set; }
 
     private void Awake()
@@ -49,8 +51,13 @@ public class LevelManager : MonoBehaviour
 
     public void Loss()
     {
+        StartCoroutine(LossCoroutine());
+    }
+
+    private IEnumerator LossCoroutine()
+    {
+        yield return StartCoroutine(player.GetComponent<Player>().Die());
         GameManager.ShowMouse(true);
-        Time.timeScale = 0;
         LossUI.gameObject.SetActive(true);
     }
 

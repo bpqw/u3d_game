@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
-    public Transform topPoint;      // ���ݶ���λ��
-    public Transform bottomPoint;   // ���ݵײ�λ��
-    private float moveSpeed = 3.5f;  // �����ƶ��ٶ�
-    private bool goingLeft = true;    // ���ݵ�ǰ�Ƿ��������ƶ�
-    private Vector3 targetPosition; // ��һĿ��λ
+    public Transform topPoint;      // Top point position
+    public Transform bottomPoint;   // Bottom point position
+    private float moveSpeed = 3.5f;  // Movement speed
+    private bool goingLeft = true;    // Whether the wall is currently moving left
+    private Vector3 targetPosition; // Next target position
     // Start is called before the first frame update
     void Start()
     {
@@ -23,10 +23,10 @@ public class Attack : MonoBehaviour
     void MoveAtkWall()
     {
 
-        // ƽ���ƶ�������Ŀ��λ��
+        // Move the wall towards the target position
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
 
-        // ����Ŀ��λ�ú��л�����
+        // If the wall reaches the target position, change direction
         if (transform.position == targetPosition)
         {
             goingLeft = !goingLeft;

@@ -39,6 +39,9 @@ public class Player : MonoBehaviour
 
     [SerializeField] private SkillManager skillManager;
 
+    private bool isDead = false;
+    private bool isDying = false;
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -48,6 +51,20 @@ public class Player : MonoBehaviour
         skillManager.AddSkill(gameObject.AddComponent<FireballSkill>());
         skillManager.AddSkill(gameObject.AddComponent<FlySkill>());
         skillManager.InitializeSkills();
+    }
+
+    public IEnumerator Die()
+    {
+        if (isDying) yield break;
+        
+        isDying = true;
+        animator.SetTrigger("Die");
+        isDead = true;
+
+        // Wait until the death animation is finished
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        
+        isDying = false;
     }
 
     private void Start()
@@ -139,7 +156,7 @@ public class Player : MonoBehaviour
 
     private void HandleMovement()
     {
-        if (isPlayingLandingAnimation)
+        if (isPlayingLandingAnimation || isDead)
         {
             return;
         }
