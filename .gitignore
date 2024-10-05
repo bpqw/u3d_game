@@ -71,3 +71,8 @@ crashlytics-build.properties
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+.vscode
+.vs
+.vsconfig
+.gitconfig
