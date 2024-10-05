@@ -72,7 +72,5 @@ crashlytics-build.properties
 ehthumbs.db
 Thumbs.db
 
-.vscode
-.vs
-.vsconfig
+.vscode/
 .gitconfig
