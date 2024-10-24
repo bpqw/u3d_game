@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using System;
 
 public class Player : MonoBehaviour
 {
@@ -32,21 +33,27 @@ public class Player : MonoBehaviour
 
     [SerializeField] private float minFallDistanceForAnim = 3f;
 
-    private bool isLandingAnimationTriggered = false;
     private bool isPlayingLandingAnimation = false;
-
-    [SerializeField] private bool isJumping = false;
 
     [SerializeField] private SkillManager skillManager;
 
     private bool isDead = false;
     private bool isDying = false;
 
+    // Add these variables at the top of the Player class
+    [SerializeField] private bool isStunned = false;
+    [SerializeField] private float currentStunTime = 0f;
+
+    [SerializeField] private float maxHealth = 100f;
+    [SerializeField] private float currentHealth;
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         verticalSpeed = -10.0f;
+        // Initialize health
+        currentHealth = maxHealth;
         // Add skills
         skillManager.AddSkill(gameObject.AddComponent<FireballSkill>());
         skillManager.AddSkill(gameObject.AddComponent<FlySkill>());
@@ -91,11 +98,9 @@ public class Player : MonoBehaviour
 
     private void PlayerInput_OnJumpPerformed(object sender, System.EventArgs e)
     {
-        if (isGrounded)
+        if (isGrounded && !isDead)
         {
-            isJumping = true;
-            animator.SetTrigger("Jump");
-            animator.SetBool("IsJumping", true);
+            animator.SetTrigger("IsJumping");
             verticalSpeed = jumpForce;
         }
     }
@@ -118,6 +123,17 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // Add stun timer update
+        if (isStunned)
+        {
+            currentStunTime -= Time.fixedDeltaTime;
+            if (currentStunTime <= 0)
+            {
+                isStunned = false;
+                animator.SetBool("IsStunned", false);
+            }
+        }
+
         HandleGroundCheck();
         HandleMovement();
         HandleGravity();
@@ -126,37 +142,23 @@ public class Player : MonoBehaviour
     private void HandleGroundCheck()
     {
         isGrounded = Physics.CheckSphere(feetTransform.position, goundCheckRadius, groundLayer);
-        float distanceToGround = GetDistanceToGround();
-        
-        if (distanceToGround < minFallDistanceForAnim && verticalSpeed < 0 && !isLandingAnimationTriggered && !isGrounded)
-        {
-            animator.SetTrigger("Landing");
-            isLandingAnimationTriggered = true;
-            isPlayingLandingAnimation = true;
-            StartCoroutine(ResetLandingAnimation());
-        } else if (isGrounded)
-        {
-            isLandingAnimationTriggered = false;
-            if(isJumping && verticalSpeed < 1f)
-            {
-                isJumping = false;
-                animator.SetBool("IsJumping", false);
-            }
-        }
-    }
 
-    private float GetDistanceToGround()
-    {
-        if (Physics.Raycast(feetTransform.position, Vector3.down, out RaycastHit hit, Mathf.Infinity, groundLayer))
-        {
-            return hit.distance;
+        float verticalSpeed = controller.velocity.y;
+
+        if (verticalSpeed < 0 && !isGrounded){
+            animator.SetBool("Falling",true);
+            Debug.Log("falling");
+        } 
+        else{
+            animator.SetBool("Falling", false);
+            Debug.Log("not falling");
         }
-        return Mathf.Infinity;
     }
 
     private void HandleMovement()
     {
-        if (isPlayingLandingAnimation || isDead)
+        // Add stun check at the beginning
+        if (isStunned || isPlayingLandingAnimation || isDead)
         {
             return;
         }
@@ -196,12 +198,40 @@ public class Player : MonoBehaviour
         if (!isGrounded)
         {
             verticalSpeed -= 9.8f * Time.deltaTime;
+        } else{
+            verticalSpeed -= 0.1f;
         }
     }
 
-    private IEnumerator ResetLandingAnimation()
+
+    // Add this method to handle stun
+    public void ApplyStun(float stunDuration)
     {
-        yield return new WaitForSeconds(1.1f); // the length of landing animation
-        isPlayingLandingAnimation = false;
+        if (!isStunned)
+        {
+            isStunned = true;
+            currentStunTime = stunDuration;
+        }
+    }
+
+    // Add new method to handle damage
+    public void TakeDamage(float damage)
+    {
+        if (isDead) return;
+        
+        currentHealth = Mathf.Max(0, currentHealth - damage);
+        
+        if (currentHealth <= 0)
+        {
+            StartCoroutine(Die());
+        }
+    }
+
+    // Add method to heal player
+    public void Heal(float amount)
+    {
+        if (isDead) return;
+        
+        currentHealth = Mathf.Min(maxHealth, currentHealth + amount);
     }
 }
