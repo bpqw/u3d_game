@@ -147,11 +147,9 @@ public class Player : MonoBehaviour
 
         if (verticalSpeed < 0 && !isGrounded){
             animator.SetBool("Falling",true);
-            Debug.Log("falling");
         } 
         else{
             animator.SetBool("Falling", false);
-            Debug.Log("not falling");
         }
     }
 
