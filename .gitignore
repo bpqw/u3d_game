@@ -1,19 +1,29 @@
-# Unity 生成的文件和目录
-/[Ll]ibrary/
-/[Tt]emp/
-/[Oo]bj/
-/[Bb]uild/
-/[Bb]uilds/
-/[Ll]ogs/
-/[Uu]ser[Ss]ettings/
+# Unity 项目文件夹
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+[Mm]emoryCaptures/
 
-# MemoryCaptures 可能包含敏感信息
-/[Mm]emoryCaptures/
+# 不要忽略这些重要目录
+!/[Aa]ssets/
+!/[Pp]rojectSettings/
+!/[Pp]ackages/
 
-# Asset 元数据应该只在相应的 asset 被忽略时才忽略
-!/[Aa]ssets/**/*.meta
+# Unity3D generated meta files
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
 
-# 自动生成的 Visual Studio / MonoDevelop 解决方案和项目文件
+# Unity3D generated file on crash reports
+sysinfo.txt
+
+# Visual Studio / MonoDevelop / Rider 生成的文件
+.vs/
+.idea/
 ExportedObj/
 .consulo/
 *.csproj
@@ -31,37 +41,33 @@ ExportedObj/
 *.opendb
 *.VC.db
 
-# Unity3D 生成的元文件
-*.pidb.meta
-*.pdb.meta
-*.mdb.meta
-
-# Unity3D 生成的崩溃报告文件
-sysinfo.txt
-
-# 构建
+# 构建输出
 *.apk
 *.aab
 *.unitypackage
 *.app
 
-# Crashlytics 生成的文件
+# Asset meta files (确保包含所有meta文件)
+!*.meta
+
+# Crashlytics
 crashlytics-build.properties
 
-# Packed Addressables
+# Addressables
 /[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
 
-# 临时自动生成的 Android Assets
+# Streaming Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
-# Visual Scripting 生成的文件
+# Visual Scripting
 /[Aa]ssets/[Uu]nity.VisualScripting.Generated/
 /[Aa]ssets/[Uu]nity.VisualScripting.Generated.meta
 
 # 版本控制
 .plastic/
-.vs/
+.vscode/
+.gitconfig
 
 # 操作系统生成的文件
 .DS_Store
@@ -72,5 +78,7 @@ crashlytics-build.properties
 ehthumbs.db
 Thumbs.db
 
-.vscode/
-.gitconfig
+# 自定义忽略（可根据项目需要添加）
+# /[Aa]ssets/[Pp]lugins/
+# /[Aa]ssets/[Ss]treamingAssets/
+# *.log
