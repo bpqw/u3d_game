@@ -5501,7 +5501,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skills: []
-  fireballPrefab: {fileID: 0}
+  fireballPrefab: {fileID: 1927372005322154, guid: 39de80c7e7a1a2942820576875608e5d, type: 3}
 --- !u!4 &511362711
 Transform:
   m_ObjectHideFlags: 0
