@@ -4,7 +4,7 @@ using UnityEngine;
 using Cinemachine;
 using System;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamageable
 {
 
     [SerializeField] private float jumpForce = 5f;
@@ -31,8 +31,6 @@ public class Player : MonoBehaviour
 
     [SerializeField] private float runningFactor;
 
-    [SerializeField] private float minFallDistanceForAnim = 3f;
-
     private bool isPlayingLandingAnimation = false;
 
     [SerializeField] private SkillManager skillManager;
@@ -40,12 +38,15 @@ public class Player : MonoBehaviour
     private bool isDead = false;
     private bool isDying = false;
 
-    // Add these variables at the top of the Player class
     [SerializeField] private bool isStunned = false;
     [SerializeField] private float currentStunTime = 0f;
 
     [SerializeField] private float maxHealth = 100f;
     [SerializeField] private float currentHealth;
+
+    [SerializeField] private float attackRange = 2f;
+    [SerializeField] private float attackDamage = 20f;
+    [SerializeField] private LayerMask enemyLayer;
 
     private void Awake()
     {
@@ -84,16 +85,43 @@ public class Player : MonoBehaviour
 
         playerInput.OnSkill1Performed += PlayerInput_OnSkill1Performed;
         playerInput.OnSkill2Performed += PlayerInput_OnSkill2Performed;
+        playerInput.OnAttackPerformed += PlayerInput_OnAttackPerformed;
     }
 
     private void PlayerInput_OnInteractPerformed(object sender, System.EventArgs e)
     {
-        // TODO: Implement interact, when you press key 'E'.
-        // In this function, you're noticed by your Input System that key 'E' is pressed.
-        // You could check whether a door at the front of the Player using
-        // bool Physics.Raycast(Vector3 origin, Vector3 direction, out RaycastHit hitInfo, float maxDistance, int layerMask);
-        // https://docs.unity.cn/cn/2019.4/ScriptReference/Physics.Raycast.html is helpful.
-        throw new System.NotImplementedException();
+        // Skip if player is dead or stunned
+        if (isDead || isStunned) return;
+
+        // Define interaction distance
+        float interactDistance = 2f;
+
+        // Find all objects with Interactable component in scene
+        Collider[] colliders = Physics.OverlapSphere(transform.position, interactDistance);
+        
+        // Find the closest interactable object
+        float closestDistance = float.MaxValue;
+        IInteractable closestInteractable = null;
+        
+        foreach (Collider collider in colliders)
+        {
+            IInteractable interactable = collider.GetComponent<IInteractable>();
+            if (interactable != null)
+            {
+                float distance = Vector3.Distance(transform.position, collider.transform.position);
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestInteractable = interactable;
+                }
+            }
+        }
+
+        // Interact with the closest object if found
+        if (closestInteractable != null)
+        {
+            closestInteractable.Interact(gameObject);
+        }
     }
 
     private void PlayerInput_OnJumpPerformed(object sender, System.EventArgs e)
@@ -115,10 +143,44 @@ public class Player : MonoBehaviour
         skillManager.ActivateSkill(1, gameObject);
     }
 
+    private void PlayerInput_OnAttackPerformed(object sender, System.EventArgs e)
+    {
+        Debug.Log("attack!");
+        if (isDead || isStunned) return;
+        
+        // Play attack animation
+        animator.SetTrigger("Attack");
+        
+        // Detect enemies in range
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, attackRange, enemyLayer);
+        
+        foreach (var hitCollider in hitColliders)
+        {
+            // Check if object is in front of player using dot product
+            Vector3 directionToTarget = (hitCollider.transform.position - transform.position).normalized;
+            float dotProduct = Vector3.Dot(transform.forward, directionToTarget);
+            
+            // Only damage enemies in front of player (dot product > 0.5 means within ~90 degrees)
+            if (dotProduct > 0.5f)
+            {
+                // Try to get IDamageable interface
+                IDamageable damageable = hitCollider.GetComponent<IDamageable>();
+                if (damageable != null)
+                {
+                    damageable.TakeDamage(attackDamage);
+                }
+            }
+        }
+        ApplyStun(0.4f);
+    }
+
+
     private void OnDestroy()
     {
         playerInput.OnSkill1Performed -= PlayerInput_OnSkill1Performed;
         playerInput.OnSkill2Performed -= PlayerInput_OnSkill2Performed;
+        playerInput.OnJumpPerformed -= PlayerInput_OnJumpPerformed;
+        playerInput.OnInteractPerformed -= PlayerInput_OnInteractPerformed;
     }
 
     private void FixedUpdate()
@@ -202,7 +264,6 @@ public class Player : MonoBehaviour
     }
 
 
-    // Add this method to handle stun
     public void ApplyStun(float stunDuration)
     {
         if (!isStunned)
@@ -212,7 +273,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    // Add new method to handle damage
     public void TakeDamage(float damage)
     {
         if (isDead) return;
@@ -225,7 +285,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    // Add method to heal player
     public void Heal(float amount)
     {
         if (isDead) return;

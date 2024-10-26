@@ -12,6 +12,9 @@ public class PlayerInput : MonoBehaviour
     public event EventHandler<bool> OnRunToggled;
     public event EventHandler OnSkill1Performed;
     public event EventHandler OnSkill2Performed;
+    public event EventHandler OnAttackPerformed;
+
+    
 
     private void Awake()
     {
@@ -27,6 +30,7 @@ public class PlayerInput : MonoBehaviour
         inputActions.Player.Run.canceled += Run_canceled;
         inputActions.Player.Skill1.performed += Skill1_performed;
         inputActions.Player.Skill2.performed += Skill2_performed;
+        inputActions.Player.Attack.performed += Attack_performed;
     }
 
     private void OnDestroy()
@@ -37,6 +41,7 @@ public class PlayerInput : MonoBehaviour
         inputActions.Player.Run.canceled -= Run_canceled;
         inputActions.Player.Skill1.performed -= Skill1_performed;
         inputActions.Player.Skill2.performed -= Skill2_performed;
+        inputActions.Player.Attack.performed -= Attack_performed;
 
         inputActions.Dispose();
     }
@@ -69,6 +74,11 @@ public class PlayerInput : MonoBehaviour
     private void Skill2_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
         OnSkill2Performed?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void Attack_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        OnAttackPerformed?.Invoke(this, EventArgs.Empty);
     }
 
     public Vector2 GetMovementVectorNormalized()

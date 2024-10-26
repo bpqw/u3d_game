@@ -37,7 +37,12 @@ public class Attack : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            LevelManager.Instance.Loss();
+            // Get the Player component and call TakeDamage on it
+            Player player = other.GetComponent<Player>();
+            if (player != null)
+            {
+                player.TakeDamage(10);
+            }
         }
     }
 }

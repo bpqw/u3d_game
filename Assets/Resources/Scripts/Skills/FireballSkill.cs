@@ -25,7 +25,8 @@ public class FireballSkill : BaseSkill
         caster.GetComponent<Animator>().SetTrigger("SpellCast");
         yield return new WaitForSeconds(1.3f); // Wait until the animation ends
         caster.GetComponent<Player>().ApplyStun(1.3f);
-        GameObject fireball = Instantiate(Prefab, caster.transform.position + caster.transform.forward, caster.transform.rotation);
+        // Add Vector3.up * 1.5f to raise the spawn position by 1.5 units
+        GameObject fireball = Instantiate(Prefab, caster.transform.position + caster.transform.forward + Vector3.up * 1.5f, caster.transform.rotation);
         fireball.GetComponent<Rigidbody>().velocity = caster.transform.forward * speed;
 
         StartCooldown();

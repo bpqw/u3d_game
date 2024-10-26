@@ -2733,6 +2733,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8460917321318470221, guid: 3964c23ae9838e84889ea6d65b5861aa, type: 3}
   m_PrefabInstance: {fileID: 223639645}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &226761117 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6269829871256663518, guid: 48b7892084d8407f59065e082c9381af, type: 3}
+  m_PrefabInstance: {fileID: 642148875}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &250139237
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5522,6 +5527,22 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6649909684630368100, guid: 48b7892084d8407f59065e082c9381af, type: 3}
   m_PrefabInstance: {fileID: 642148875}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &517383891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226761117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7ef6589091019240b54fc373f766ba1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponPrefab: {fileID: 8151969592506029295, guid: ac911dff3c449f54bbd04beffadcf9c1, type: 3}
+  weaponSocket: {fileID: 1447369679}
+  weaponPosition: {x: 0.2, y: 0, z: 0.1}
+  weaponRotation: {x: 0, y: -90, z: 0}
 --- !u!1001 &533712961
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6817,7 +6838,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6269829871256663518, guid: 48b7892084d8407f59065e082c9381af, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 517383891}
   m_SourcePrefab: {fileID: 100100000, guid: 48b7892084d8407f59065e082c9381af, type: 3}
 --- !u!1001 &653586423
 PrefabInstance:
@@ -14567,6 +14591,11 @@ Transform:
   - {fileID: 6205901426660826638}
   m_Father: {fileID: 1201869165}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1447369679 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1180624583758962268, guid: 48b7892084d8407f59065e082c9381af, type: 3}
+  m_PrefabInstance: {fileID: 642148875}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1450683760
 PrefabInstance:
   m_ObjectHideFlags: 0
