@@ -5539,7 +5539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7ef6589091019240b54fc373f766ba1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponPrefab: {fileID: 4761580129063501969, guid: cff5dffe00fae3646b02cf6f01cb6514, type: 3}
+  weaponPrefab: {fileID: 8133399767090564659, guid: fa7576413fbf339459d948aa3d3ebbe5, type: 3}
   weaponSocket: {fileID: 1447369679}
   weaponPosition: {x: 0.2, y: 0, z: 0.1}
   weaponRotation: {x: 0, y: -90, z: 0}
