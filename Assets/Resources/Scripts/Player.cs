@@ -47,7 +47,7 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] private float attackRange = 2f;
     [SerializeField] private float attackDamage = 20f;
     [SerializeField] private LayerMask enemyLayer;
-
+    [SerializeField] private float attackStunTime = 1.4f;
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -171,7 +171,7 @@ public class Player : MonoBehaviour, IDamageable
                 }
             }
         }
-        ApplyStun(0.4f);
+        ApplyStun(attackStunTime);
     }
 
 
