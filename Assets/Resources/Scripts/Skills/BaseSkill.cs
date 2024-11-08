@@ -6,6 +6,8 @@ public abstract class BaseSkill : MonoBehaviour, ISkill
     public float Cooldown { get; protected set; }
     protected float lastActivationTime;
 
+    public Sprite sprite;
+
     public virtual void Activate(GameObject caster)
     {
         if (IsOnCooldown())
