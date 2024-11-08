@@ -5,11 +5,17 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/start.unity
     guid: 1d1dbafe1ae1e604691043389866f213
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Level-1.unity
     guid: aff20de823c91894682604b592f47085
+  - enabled: 1
+    path: Assets/Scenes/menu.unity
+    guid: 9c50a5d0b9286064fae7544f5ac9030b
+  - enabled: 1
+    path: Assets/Simple Modular Dungeon/Scenes/Modular Dungeon.unity
+    guid: 27915ac565aadf048b89a94d619c501d
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: b9610eac73421f7c99950683a61d3d87, type: 2}
