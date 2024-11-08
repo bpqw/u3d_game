@@ -8,12 +8,14 @@ public class FlySkill : BaseSkill
     {
         Name = "飞行术";
         Cooldown = 10f;
+        sprite = Resources.Load<Sprite>("SkillIcon/exp");
     }
 
     public override void Activate(GameObject caster)
     {
         if (IsOnCooldown()) return;
         StartCoroutine(ActivateRoutine(caster));
+        
     }
 
     private IEnumerator ActivateRoutine(GameObject caster)

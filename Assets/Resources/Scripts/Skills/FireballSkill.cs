@@ -11,6 +11,7 @@ public class FireballSkill : BaseSkill
     {
         Name = "火球术";
         Cooldown = 1f;
+        sprite = Resources.Load<Sprite>("SkillIcon/bomb");
     }
 
     public override void Activate(GameObject caster)

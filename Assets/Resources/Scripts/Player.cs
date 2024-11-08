@@ -41,8 +41,8 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] private bool isStunned = false;
     [SerializeField] private float currentStunTime = 0f;
 
-    [SerializeField] private float maxHealth = 100f;
-    [SerializeField] private float currentHealth;
+    [SerializeField] public float maxHealth = 100f;
+    [SerializeField] public float currentHealth;
 
     [SerializeField] private float attackRange = 2f;
     [SerializeField] private float attackDamage = 20f;

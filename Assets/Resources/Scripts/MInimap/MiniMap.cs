@@ -244,7 +244,7 @@ public class MiniMap : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"Some objects are null: enemy={enemy!=null}, player={player!=null}, enemyIcon={enemyIcon!=null}, scanLine={scanLine!=null}");
+            //Debug.LogWarning($"Some objects are null: enemy={enemy!=null}, player={player!=null}, enemyIcon={enemyIcon!=null}, scanLine={scanLine!=null}");
         }
 
         if (scanLine != null)
