@@ -5508,7 +5508,6 @@ MonoBehaviour:
   skills: []
   fireballPrefab: {fileID: 1927372005322154, guid: 39de80c7e7a1a2942820576875608e5d, type: 3}
   skillUIManager: {fileID: 1873892211}
-  testSkillSprites: []
 --- !u!4 &511362711
 Transform:
   m_ObjectHideFlags: 0
