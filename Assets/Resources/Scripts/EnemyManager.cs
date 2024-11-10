@@ -13,8 +13,11 @@ public class EnemyManager : MonoBehaviour
     public float createEnemyTimer = 0;
     public float createEnemyTime = 2;
 
+    public List<Vector3> skeletonSoldierPosition = new List<Vector3>();
+   
     void Start()
     {
+        skeletonSoldierPosition.Add(new Vector3(0f, 0.0f, 0f));
         SpawnEnemies(); // 游戏开始时生成敌人
     }
 
@@ -38,8 +41,9 @@ public class EnemyManager : MonoBehaviour
     {
         while (enemies.Count < enemyCount)
         {
+            int randomInt = Random.Range(0, 5);
             GameObject enemy = enemyPool.GetEnemy(); // 从对象池获取敌人
-            Vector3 spawnPosition = GetValidNavMeshPosition(enemy); // 获取有效生成位置
+            Vector3 spawnPosition = skeletonSoldierPosition[0]; // 获取有效生成位置
             Debug.Log(spawnPosition);
             enemy.transform.position = spawnPosition; // 设置生成位置
             enemies.Add(enemy); // 将生成的敌人添加到列表中
@@ -47,6 +51,7 @@ public class EnemyManager : MonoBehaviour
         Debug.Log("Total enemies: " + enemies.Count);
     }
 
+    //根据范围随机生成enemy的出生位置
     Vector3 GetValidNavMeshPosition(GameObject enemy)
     {
         // 生成有效的 NavMesh 位置的逻辑
@@ -76,14 +81,11 @@ public class EnemyManager : MonoBehaviour
         return spawnPosition;
     }
 
+
+    //检测范围enemy出生坐标是否合法
     bool IsValidSpawnPosition(GameObject enemy, Vector3 position)
     {
-        // 获取敌人的大小
-        Vector3 enemySize = enemy.GetComponent<Renderer>().bounds.size;
-        Vector3 boxSize = enemySize / 2; // `CheckBox` 参数是盒子的一半大小
-        Debug.Log(enemySize);
-        // 检查是否有重叠物体
-        return !Physics.CheckBox(position, boxSize, Quaternion.identity);
+        return true;
     }
 
     public void EnemyDied(GameObject enemy)
