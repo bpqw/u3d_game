@@ -10,7 +10,7 @@ public class SkillManager : MonoBehaviour
     public void AddSkill(BaseSkill skill)
     {
         skills.Add(skill);
-        //skillUIManager.AddSkillIcon(skill.Name, skill.sprite);
+        skillUIManager.AddSkillIcon(skill.Name, skill.sprite);
         Debug.Log("添加"+skill.Name);
     }
 
